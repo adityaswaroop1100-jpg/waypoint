@@ -1,0 +1,7 @@
+node_modules
+dist
+*.mp4
+screen_recording_assets
+video_production_assets
+test_screen.png
+.git
