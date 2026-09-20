@@ -1,0 +1,7 @@
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_4/frame_01_job_loss.png'
+duration 6.667
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_4/frame_02_rent_hike.png'
+duration 6.667
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_4/frame_03_medical.png'
+duration 6.667
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_4/frame_03_medical.png'

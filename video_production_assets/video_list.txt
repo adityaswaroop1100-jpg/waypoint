@@ -1,0 +1,8 @@
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/segment_1.mp4'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/segment_2.mp4'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/segment_3.mp4'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/segment_4.mp4'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/segment_5.mp4'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/segment_6.mp4'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/segment_7.mp4'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/segment_8.mp4'

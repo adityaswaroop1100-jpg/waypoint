@@ -1,0 +1,7 @@
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_3/frame_01_forecast.png'
+duration 7.760
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_3/frame_02_chart.png'
+duration 7.760
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_3/frame_03_collision_detail.png'
+duration 7.760
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_3/frame_03_collision_detail.png'

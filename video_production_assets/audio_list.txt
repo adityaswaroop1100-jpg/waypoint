@@ -1,0 +1,6 @@
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/audio_1.wav'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/audio_2.wav'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/audio_3.wav'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/audio_4.wav'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/audio_5.wav'
+file '/Users/adityaswaroop/Desktop/Waypoint/video_production_assets/audio_6.wav'

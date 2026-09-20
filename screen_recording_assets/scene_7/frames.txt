@@ -1,0 +1,5 @@
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_7/frame_01_goals.png'
+duration 6.795
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_7/frame_02_activity.png'
+duration 6.795
+file '/Users/adityaswaroop/Desktop/Waypoint/screen_recording_assets/scene_7/frame_02_activity.png'
