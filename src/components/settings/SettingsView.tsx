@@ -19,6 +19,7 @@ interface SettingsViewProps {
   settings: Settings;
   onUpdateSettings: (settings: Partial<Settings>) => void;
   onResetDemo: () => void;
+  onClearData?: () => void;
   debugState: {
     recurring: RecurringItem[];
     anomalies: Anomaly[];
@@ -34,6 +35,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
   settings,
   onUpdateSettings,
   onResetDemo,
+  onClearData,
   debugState
 }) => {
   const [showDebug, setShowDebug] = useState(false);
@@ -175,35 +177,66 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
         </form>
       </Card>
 
-      {/* ONE-CLICK RESET DEMO SECTION */}
-      <Card className="p-6 sm:p-8 border-rose-200 bg-rose-50/30 space-y-4">
-        <div className="flex items-start justify-between gap-4">
+      {/* USER DATA MANAGEMENT SECTION */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Reset to Sample Data */}
+        <Card className="p-6 border-slate-200 bg-slate-50/50 flex flex-col justify-between space-y-4">
           <div className="flex items-start gap-3">
-            <div className="p-2.5 bg-rose-100 text-rose-700 rounded-2xl shrink-0">
+            <div className="p-2.5 bg-indigo-100 text-indigo-700 rounded-2xl shrink-0">
               <RotateCcw className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-rose-950">One-Click Demo Reset (Requirement §0.8)</h3>
-              <p className="text-xs text-rose-800 leading-relaxed mt-0.5">
-                Restores the pristine seed dataset, clears all custom category overrides, clears actioned/dismissed moves, and re-initializes all agent computations.
+              <h3 className="text-sm font-bold text-slate-900">Load Sample 6-Month Dataset</h3>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                Restores the verified 6-month demo dataset (77 transactions) to test all 4 deterministic agents and forecasts.
               </p>
             </div>
           </div>
 
           <Button
-            variant="danger"
+            variant="secondary"
             size="sm"
             onClick={() => {
-              if (window.confirm('Reset all demo state to the original seed dataset?')) {
+              if (window.confirm('Reload the verified 6-month sample dataset?')) {
                 onResetDemo();
               }
             }}
             icon={<RotateCcw className="w-4 h-4" />}
           >
-            Reset State
+            Load Sample Dataset
           </Button>
-        </div>
-      </Card>
+        </Card>
+
+        {/* Start Fresh / Clean Slate for New User */}
+        {onClearData && (
+          <Card className="p-6 border-rose-200 bg-rose-50/30 flex flex-col justify-between space-y-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 bg-rose-100 text-rose-700 rounded-2xl shrink-0">
+                <Database className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-rose-950">Start Fresh (My Own Data)</h3>
+                <p className="text-xs text-rose-700 mt-1 leading-relaxed">
+                  Clears preloaded sample data so you can upload your own PDF/CSV statements or record your own transactions from zero.
+                </p>
+              </div>
+            </div>
+
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => {
+                if (window.confirm('Clear all sample data and start fresh with an empty ledger for your own transactions?')) {
+                  onClearData();
+                }
+              }}
+              icon={<Database className="w-4 h-4" />}
+            >
+              Start Clean Slate
+            </Button>
+          </Card>
+        )}
+      </div>
 
       {/* ENGINE STATE INSPECTOR */}
       <Card className="p-6 sm:p-8 space-y-4">

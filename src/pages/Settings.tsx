@@ -7,6 +7,7 @@ export const SettingsPage: React.FC = () => {
   const settings = useWaypointStore((s) => s.settings);
   const updateSettings = useWaypointStore((s) => s.updateSettings);
   const resetDemo = useWaypointStore((s) => s.resetDemo);
+  const clearAllTransactions = useWaypointStore((s) => s.clearAllTransactions);
   const categoryOverrides = useWaypointStore((s) => s.categoryOverrides);
   const patterns = useWaypointStore((s) => s.getPatterns());
   const decision = useWaypointStore((s) => s.getDecisionState());
@@ -19,7 +20,7 @@ export const SettingsPage: React.FC = () => {
           Settings & Preferences
         </h2>
         <p className="text-xs text-slate-500">
-          Configure your financial baseline, monthly income, safety buffer levels, and restore the initial state at any time.
+          Configure your financial baseline, monthly income, safety buffer levels, and manage your ledger data.
         </p>
       </div>
 
@@ -27,6 +28,7 @@ export const SettingsPage: React.FC = () => {
         settings={settings}
         onUpdateSettings={updateSettings}
         onResetDemo={resetDemo}
+        onClearData={clearAllTransactions}
         debugState={{
           recurring: patterns.recurring,
           anomalies: patterns.anomalies,
