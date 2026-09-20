@@ -7,28 +7,37 @@ import {
   Calendar,
   Sparkles,
   ArrowUpDown,
-  Tag
+  Tag,
+  Plus,
+  Trash2
 } from 'lucide-react';
 import { Transaction, Anomaly } from '../../types';
 import { CATEGORIES } from '../../data/categories';
 import { formatCurrency, formatDate } from '../../lib/format';
 import { Badge } from '../ui/Badge';
+import { Button } from '../ui/Button';
+import { AddTransactionModal } from './AddTransactionModal';
 
 interface ActivityTableProps {
   transactions: Transaction[];
   anomalies: Anomaly[];
   onUpdateCategory: (transactionId: string, merchant: string, newCategory: string) => void;
+  onAddTransaction?: (tx: Transaction) => void;
+  onDeleteTransaction?: (id: string) => void;
 }
 
 export const ActivityTable: React.FC<ActivityTableProps> = ({
   transactions,
   anomalies,
-  onUpdateCategory
+  onUpdateCategory,
+  onAddTransaction,
+  onDeleteTransaction
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedMonth, setSelectedMonth] = useState('ALL');
   const [sortAsc, setSortAsc] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Available months in dataset
   const availableMonths = useMemo(() => {
@@ -68,7 +77,7 @@ export const ActivityTable: React.FC<ActivityTableProps> = ({
       {/* Controls Bar */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-soft flex flex-col md:flex-row items-center justify-between gap-3">
         {/* Search */}
-        <div className="relative w-full md:w-80">
+        <div className="relative w-full md:w-72">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
@@ -79,7 +88,7 @@ export const ActivityTable: React.FC<ActivityTableProps> = ({
           />
         </div>
 
-        {/* Filters */}
+        {/* Filters and Add Action */}
         <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
           {/* Month Filter */}
           <select
@@ -117,8 +126,29 @@ export const ActivityTable: React.FC<ActivityTableProps> = ({
             <ArrowUpDown className="w-3.5 h-3.5" />
             <span>{sortAsc ? 'Oldest' : 'Newest'}</span>
           </button>
+
+          {/* Add Transaction Button */}
+          {onAddTransaction && (
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => setIsModalOpen(true)}
+              icon={<Plus className="w-3.5 h-3.5" />}
+            >
+              Add Entry
+            </Button>
+          )}
         </div>
       </div>
+
+      {/* Add Transaction Modal */}
+      {onAddTransaction && (
+        <AddTransactionModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onAdd={onAddTransaction}
+        />
+      )}
 
       {/* Transaction Table */}
       <div className="bg-white rounded-3xl border border-slate-200 shadow-soft overflow-hidden">
@@ -131,12 +161,13 @@ export const ActivityTable: React.FC<ActivityTableProps> = ({
                 <th className="py-3 px-4">Category (Editable Memory)</th>
                 <th className="py-3 px-4">Source</th>
                 <th className="py-3 px-4 text-right">Amount</th>
+                {onDeleteTransaction && <th className="py-3 px-4 text-center">Action</th>}
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-12 text-center text-slate-400">
+                  <td colSpan={onDeleteTransaction ? 6 : 5} className="py-12 text-center text-slate-400">
                     No transactions match your search filters.
                   </td>
                 </tr>
@@ -222,6 +253,23 @@ export const ActivityTable: React.FC<ActivityTableProps> = ({
                           {formatCurrency(tx.amount, '₹', true)}
                         </span>
                       </td>
+
+                      {/* Delete Action */}
+                      {onDeleteTransaction && (
+                        <td className="py-3.5 px-4 text-center">
+                          <button
+                            onClick={() => {
+                              if (window.confirm(`Delete transaction "${tx.merchant}" (${formatCurrency(tx.amount)})?`)) {
+                                onDeleteTransaction(tx.id);
+                              }
+                            }}
+                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
+                            title="Delete transaction"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </td>
+                      )}
                     </tr>
                   );
                 })

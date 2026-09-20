@@ -22,6 +22,8 @@ interface WaypointStoreState {
   // Actions
   addTransaction: (tx: Transaction) => void;
   addTransactions: (txs: Transaction[]) => void;
+  deleteTransaction: (id: string) => void;
+  clearAllTransactions: () => void;
   updateCategory: (transactionId: string, merchant: string, newCategory: string) => void;
   doMove: (moveId: string) => void;
   dismissMove: (moveId: string) => void;
@@ -71,6 +73,18 @@ export const useWaypointStore = create<WaypointStoreState>()(
       addTransactions: (txs) => {
         set((state) => ({
           transactions: [...txs, ...state.transactions]
+        }));
+      },
+
+      deleteTransaction: (id) => {
+        set((state) => ({
+          transactions: state.transactions.filter((t) => t.id !== id)
+        }));
+      },
+
+      clearAllTransactions: () => {
+        set(() => ({
+          transactions: []
         }));
       },
 

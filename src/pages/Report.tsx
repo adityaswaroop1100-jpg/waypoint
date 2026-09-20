@@ -78,6 +78,7 @@ export const Report: React.FC = () => {
         selectedMonth={selectedMonth}
         onSelectMonth={setSelectedMonth}
         availableMonths={availableMonths}
+        allTransactions={transactions}
       />
     </div>
   );

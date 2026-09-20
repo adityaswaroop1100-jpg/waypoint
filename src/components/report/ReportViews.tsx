@@ -13,24 +13,27 @@ import {
   AlertTriangle,
   AlertCircle
 } from 'lucide-react';
-import { MonthlySummary, Budget } from '../../types';
+import { MonthlySummary, Budget, Transaction } from '../../types';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { StatTile } from '../ui/StatTile';
 import { formatCurrency, formatPercentage } from '../../lib/format';
+import { MonthlyTrendsChart } from './MonthlyTrendsChart';
 
 interface ReportViewsProps {
   summary: MonthlySummary;
   selectedMonth: string;
   onSelectMonth: (month: string) => void;
   availableMonths: string[];
+  allTransactions?: Transaction[];
 }
 
 export const ReportViews: React.FC<ReportViewsProps> = ({
   summary,
   selectedMonth,
   onSelectMonth,
-  availableMonths
+  availableMonths,
+  allTransactions
 }) => {
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
@@ -87,6 +90,15 @@ Generated deterministically by Waypoint.`;
           {copied ? 'Copied Summary to Clipboard' : 'Export Text Summary'}
         </Button>
       </div>
+
+      {/* Multi-Month Trend Chart */}
+      {allTransactions && allTransactions.length > 0 && (
+        <MonthlyTrendsChart
+          transactions={allTransactions}
+          selectedMonth={selectedMonth}
+          onSelectMonth={onSelectMonth}
+        />
+      )}
 
       {/* KPI Tiles: Income, Expense, Net */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
