@@ -12,6 +12,7 @@ import {
   Settings as SettingsIcon,
   UploadCloud,
   RotateCcw,
+  Trash2,
   Sparkles
 } from 'lucide-react';
 import { useWaypointStore } from '../../store/useWaypointStore';
@@ -39,6 +40,7 @@ const NAV_ITEMS: NavItem[] = [
 
 export const Sidebar: React.FC = () => {
   const resetDemo = useWaypointStore((s) => s.resetDemo);
+  const clearAllTransactions = useWaypointStore((s) => s.clearAllTransactions);
   const decision = useWaypointStore((s) => s.getDecisionState());
   const oneMovePending = decision.theOneMove !== null;
 
@@ -90,8 +92,8 @@ export const Sidebar: React.FC = () => {
         })}
       </nav>
 
-      {/* Status & Reset Footer */}
-      <div className="p-4 border-t border-slate-800 bg-slate-950/50 space-y-3">
+      {/* Status & Quick Actions Footer */}
+      <div className="p-4 border-t border-slate-800 bg-slate-950/50 space-y-2.5">
         <div className="flex items-center justify-between text-xs text-slate-400">
           <span className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
@@ -100,18 +102,33 @@ export const Sidebar: React.FC = () => {
           <span className="font-mono text-[10px] text-slate-500">v1.0</span>
         </div>
 
-        <button
-          onClick={() => {
-            if (window.confirm('Reset application data to initial baseline state?')) {
-              resetDemo();
-            }
-          }}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs font-medium transition-colors border border-slate-700/60"
-          title="Restore initial baseline state"
-        >
-          <RotateCcw className="w-3.5 h-3.5" />
-          Reset State
-        </button>
+        <div className="grid grid-cols-2 gap-2 pt-1">
+          <button
+            onClick={() => {
+              if (window.confirm('Clear all sample transactions and start fresh with an empty ledger?')) {
+                clearAllTransactions();
+              }
+            }}
+            className="flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-rose-950/60 hover:text-rose-300 text-slate-300 text-[11px] font-semibold transition-colors border border-slate-700/60"
+            title="Start fresh with an empty ledger for your own transactions"
+          >
+            <Trash2 className="w-3 h-3 text-rose-400" />
+            <span>Clean Slate</span>
+          </button>
+
+          <button
+            onClick={() => {
+              if (window.confirm('Reload the 6-month sample dataset?')) {
+                resetDemo();
+              }
+            }}
+            className="flex items-center justify-center gap-1.5 px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-indigo-950/60 hover:text-indigo-300 text-slate-300 text-[11px] font-semibold transition-colors border border-slate-700/60"
+            title="Load the 6-month demo dataset"
+          >
+            <RotateCcw className="w-3 h-3 text-indigo-400" />
+            <span>Load Demo</span>
+          </button>
+        </div>
       </div>
     </aside>
   );
